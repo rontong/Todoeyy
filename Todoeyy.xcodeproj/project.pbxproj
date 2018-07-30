@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		F2157348210D3DCB003418B9 /* DataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = F2157346210D3DCB003418B9 /* DataModel.xcdatamodeld */; };
+		F2562E07210FCAA7002E07CA /* CategoriesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2562E06210FCAA7002E07CA /* CategoriesViewController.swift */; };
 		F2B8BFF12109586E006049F0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2B8BFF02109586E006049F0 /* AppDelegate.swift */; };
 		F2B8BFF32109586E006049F0 /* TodoListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2B8BFF22109586E006049F0 /* TodoListViewController.swift */; };
 		F2B8BFF62109586E006049F0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F2B8BFF42109586E006049F0 /* Main.storyboard */; };
@@ -17,6 +18,7 @@
 
 /* Begin PBXFileReference section */
 		F2157347210D3DCB003418B9 /* DataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DataModel.xcdatamodel; sourceTree = "<group>"; };
+		F2562E06210FCAA7002E07CA /* CategoriesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesViewController.swift; sourceTree = "<group>"; };
 		F2B8BFED2109586E006049F0 /* Todoeyy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Todoeyy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F2B8BFF02109586E006049F0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F2B8BFF22109586E006049F0 /* TodoListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListViewController.swift; sourceTree = "<group>"; };
@@ -48,6 +50,7 @@
 		F221561C2109A4220096238C /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				F2562E06210FCAA7002E07CA /* CategoriesViewController.swift */,
 				F2B8BFF22109586E006049F0 /* TodoListViewController.swift */,
 			);
 			path = Controller;
@@ -172,6 +175,7 @@
 			files = (
 				F2B8BFF32109586E006049F0 /* TodoListViewController.swift in Sources */,
 				F2157348210D3DCB003418B9 /* DataModel.xcdatamodeld in Sources */,
+				F2562E07210FCAA7002E07CA /* CategoriesViewController.swift in Sources */,
 				F2B8BFF12109586E006049F0 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
