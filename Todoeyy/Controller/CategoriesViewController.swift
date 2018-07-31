@@ -8,6 +8,8 @@
 
 import UIKit
 import CoreData
+import RealmSwift
+import SwipeCellKit
 
 class CategoriesViewController: UITableViewController {
 
@@ -18,6 +20,8 @@ class CategoriesViewController: UITableViewController {
         super.viewDidLoad()
         
         loadData()
+        
+        tableView.rowHeight = 80.0
     }
     
     
@@ -28,7 +32,8 @@ class CategoriesViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: "CategoryCell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "CategoryCell", for: indexPath) as! SwipeTableViewCell
+        cell.delegate = self
         let cellCategory = categories[indexPath.row]
         
         cell.textLabel?.text = cellCategory.name
@@ -106,4 +111,27 @@ class CategoriesViewController: UITableViewController {
     }
     
     
+}
+
+//MARK: - Swipe Cell Delegate Methods
+
+extension CategoriesViewController: SwipeTableViewCellDelegate {
+   
+    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath, for orientation: SwipeActionsOrientation) -> [SwipeAction]? {
+        guard orientation == .right else { return nil }
+        
+        let deleteAction = SwipeAction(style: .destructive, title: "Delete") { action, indexPath in
+            // handle action by updating model with deletion
+            
+            self.categories.remove(at: indexPath.row)
+            self.tableView.reloadData()
+            
+            print("Item at \(indexPath.row) deleted")
+        }
+        
+        // customize the action appearance
+        deleteAction.image = UIImage(named: "delete-icon")
+        
+        return [deleteAction]
+    }
 }
