@@ -13,6 +13,8 @@ import SwipeCellKit
 
 class CategoriesViewController: UITableViewController {
 
+    let realm = try! Realm()
+    
     var categories = [Category]()
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
@@ -59,10 +61,12 @@ class CategoriesViewController: UITableViewController {
     
     //MARK: - Data Manipulation Methods
     
-    func saveData(){
+    func saveData(category: Category){
         
         do {
-            try context.save()
+            try realm.write {
+                realm.add(category)
+            }
         } catch {
             print("***Error saving data, \(error)")
         }
@@ -71,16 +75,16 @@ class CategoriesViewController: UITableViewController {
 
     }
     
-    func loadData(with request: NSFetchRequest<Category> = Category.fetchRequest()) {
-        
-        do {
-            self.categories = try context.fetch(request)
-        } catch {
-            print("***Error fetching data, \(error)")
-        }
-        
-        tableView.reloadData()
-    }
+//    func loadData(with request: NSFetchRequest<Category> = Category.fetchRequest()) {
+//        
+//        do {
+//            self.categories = try context.fetch(request)
+//        } catch {
+//            print("***Error fetching data, \(error)")
+//        }
+//        
+//        tableView.reloadData()
+//    }
     
     //MARK: - Add New Categories
     
@@ -92,11 +96,11 @@ class CategoriesViewController: UITableViewController {
         
         let action = UIAlertAction(title: "Add Category", style: .default) { (action) in
             
-            let newCategory = Category(context: self.context)
-            newCategory.name = newCategoryField.text
+            let newCategory = Category()
+            newCategory.name = newCategoryField.text!
             self.categories.append(newCategory)
             
-            self.saveData()
+            self.saveData(category: newCategory)
             
         }
         
