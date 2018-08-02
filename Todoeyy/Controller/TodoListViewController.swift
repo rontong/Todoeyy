@@ -8,6 +8,7 @@
 
 import UIKit
 import RealmSwift
+import ChameleonFramework
 
 class TodoListViewController: SwipeTableViewController {
 
@@ -44,16 +45,19 @@ class TodoListViewController: SwipeTableViewController {
             
             // Ternary operator. value = condition ? valueIfTrue : valueIfFalse
             // If the item.checked is true, then set the cell.accessoryType to .checkmark. Otherwise set it to .none
-            
             cell.accessoryType = item.checked ? .checkmark : .none
             
+            let percentage = CGFloat(indexPath.row) / CGFloat(todoItems!.count)
+           
+            if let colour = UIColor(hexString: selectedCategory!.color)?.darken(byPercentage: percentage) {
+                
+                cell.backgroundColor = colour
+                cell.textLabel?.textColor = ContrastColorOf(colour, returnFlat: true)
+                }
         } else {
-            
             cell.textLabel?.text = "No Items Added"
         }
-        
         return cell
-        
     }
     
     //MARK: - TableView Delegate Methods

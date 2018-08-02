@@ -9,6 +9,7 @@
 import UIKit
 import CoreData
 import RealmSwift
+import ChameleonFramework
 
 class CategoriesViewController: SwipeTableViewController {
 
@@ -20,8 +21,8 @@ class CategoriesViewController: SwipeTableViewController {
         super.viewDidLoad()
         
         loadData()
+        
     }
-    
     
     //MARK: - TableView Datasource Methods
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -36,7 +37,16 @@ class CategoriesViewController: SwipeTableViewController {
         let cell = super.tableView(tableView, cellForRowAt: indexPath)
         
         cell.textLabel?.text = categories?[indexPath.row].name ?? "No Categories Added Yet"
-
+        
+        if let category = categories?[indexPath.row].color {
+        
+            cell.backgroundColor = UIColor(hexString: category)
+            
+        } else {
+            
+            cell.backgroundColor = UIColor(hexString: "1D9BF6")
+        }
+                
         return cell
     }
     
@@ -108,6 +118,7 @@ class CategoriesViewController: SwipeTableViewController {
             
             let newCategory = Category()
             newCategory.name = newCategoryField.text!
+            newCategory.color = UIColor.randomFlat.hexValue()
             
             self.saveData(category: newCategory)
             
