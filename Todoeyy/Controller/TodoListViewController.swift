@@ -15,6 +15,8 @@ class TodoListViewController: SwipeTableViewController {
     var todoItems : Results<Item>?
     let realm = try! Realm()
     
+    @IBOutlet weak var searchBar: UISearchBar!
+    
     var selectedCategory : Category? {
         didSet {
             loadItems()
@@ -23,12 +25,38 @@ class TodoListViewController: SwipeTableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-    //    print("*** Document Directory \(FileManager.default.urls(for: .documentDirectory, in: .userDomainMask))")
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+    
+        title = selectedCategory?.name
         
-
+        guard let colourHex = selectedCategory?.color else {fatalError()}
+        
+        updateNavBar(withHexCode: colourHex)
     }
 
+    // Reset colours when navigating back to the Categories VC
+    override func viewWillDisappear(_ animated: Bool) {
+        guard let originalColour = UIColor(hexString: "1D9BF6") else {fatalError()}
+        
+        updateNavBar(withHexCode: "1D9BF6")
+    }
+    
+    //MARK: - Nav Bar Setup Methods
+    
+    func updateNavBar(withHexCode colourHexCode: String) {
+        
+        guard let navBar = navigationController?.navigationBar else {fatalError("*** Navigation controller does not exist")}
+        
+        guard let navBarColour = UIColor(hexString: colourHexCode) else {fatalError()}
+        navBar.barTintColor = navBarColour
+        navBar.tintColor = ContrastColorOf(navBarColour, returnFlat: true)
+        navBar.largeTitleTextAttributes = [NSAttributedStringKey.foregroundColor : ContrastColorOf(navBarColour, returnFlat: true)]
+        searchBar.barTintColor = navBarColour
+        
+    }
+    
     //MARK: - Tableview Datasource Methods
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -74,7 +102,7 @@ class TodoListViewController: SwipeTableViewController {
             }
     
         tableView.deselectRow(at: indexPath, animated: true)
-   
+        tableView.reloadData()
         }
     }
     
